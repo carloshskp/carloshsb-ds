@@ -1,0 +1,43 @@
+# Source files (not needed in published package)
+src/
+
+# Test files
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+__tests__/
+__snapshots__/
+coverage/
+
+# Config files
+vitest.config.ts
+vitest.setup.ts
+tsconfig.json
+tsconfig.build.json
+vite.lib.config.ts
+.npmrc
+
+# Development files
+*.log
+.DS_Store
+node_modules/
+
+# Documentation (keep README.md via files field)
+ARCHITECTURE.md
+CONTRIBUTING.md
+QUICK_START.md
+PUBLISHING.md
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# Yarn
+.yarn/
+.yarnrc.yml
+yarn.lock

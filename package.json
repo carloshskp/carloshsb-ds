@@ -1,0 +1,102 @@
+{
+  "name": "@carloshb/ds",
+  "version": "0.0.1",
+  "description": "Design System library for carloshb.com.br projects",
+  "type": "module",
+  "license": "MIT",
+  "author": "Carlos H. Bernardes",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carloshskp/v3.carloshb.com.br.git",
+    "directory": "ds"
+  },
+  "homepage": "https://github.com/carloshskp/v3.carloshb.com.br/tree/main/ds#readme",
+  "bugs": {
+    "url": "https://github.com/carloshskp/v3.carloshb.com.br/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/types/public-api/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/public-api/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./primitives": {
+      "types": "./dist/types/components/ui/primitives/index.d.ts",
+      "import": "./dist/primitives.js"
+    },
+    "./terminal": {
+      "types": "./dist/types/components/ui/terminal/index.d.ts",
+      "import": "./dist/terminal.js"
+    },
+    "./modal": {
+      "types": "./dist/types/components/ui/modal/CardModal.d.ts",
+      "import": "./dist/modal.js"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
+  "dependencies": {
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.555.0",
+    "tailwind-merge": "^3.4.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react-router-dom": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.0",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "@vitest/coverage-v8": "^4.0.16",
+    "jsdom": "^24.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "typescript": "^5.5.3",
+    "vite": "^7.2.4",
+    "vitest": "^4.0.16"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && vite build --config vite.lib.config.ts",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist coverage",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "prepublishOnly": "yarn build && yarn test:coverage"
+  },
+  "keywords": [
+    "design-system",
+    "react",
+    "components",
+    "ui"
+  ],
+  "packageManager": "yarn@4.12.0"
+}
