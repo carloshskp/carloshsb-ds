@@ -23,7 +23,13 @@
     "types": [
       "vitest/globals",
       "@testing-library/jest-dom"
-    ]
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "baseUrl": "."
   },
   "include": [
     "src"
