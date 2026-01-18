@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import { cn } from '../../../utils';
-import { FocusTrap } from '@/components/a11y/FocusTrap';
-import '@/styles/card-modal.scss';
+import { FocusTrap } from '../../a11y/FocusTrap';
+import '../../../styles/card-modal.scss';
 
 interface CardModalProps {
   isOpen: boolean;

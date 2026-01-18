@@ -1,6 +1,6 @@
 import React from 'react';
 import {twMerge} from "tailwind-merge";
-import '@/styles/terminal.scss';
+import '../../../styles/terminal.scss';
 import { TypeWriter } from './type-writer';
 
 type TerminalBodyProps = {

@@ -1,6 +1,6 @@
 import {Home, User, Mail} from "lucide-react";
 import {cn} from "../../utils";
-import "@/styles/side-nav.scss";
+import "../../styles/side-nav.scss";
 import {Link, useLocation} from "react-router-dom";
 
 export function SideNav() {
