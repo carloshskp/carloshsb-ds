@@ -2,6 +2,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import dts from 'vite-plugin-dts';
+import { unlinkSync, existsSync } from 'node:fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,6 +13,24 @@ export default defineConfig({
     react({
       jsxRuntime: 'automatic',
     }),
+    dts({
+      include: ['src/**/*'],
+      exclude: ['src/**/*.test.ts', 'src/**/*.test.tsx', 'src/**/*.stories.tsx'],
+      outDir: 'dist/types',
+      rollupTypes: true,
+      entryRoot: 'src',
+    }),
+    // Plugin para remover ds.css após o build
+    {
+      name: 'remove-ds-css',
+      closeBundle() {
+        const dsCssPath = path.resolve(__dirname, 'dist/ds.css');
+        if (existsSync(dsCssPath)) {
+          unlinkSync(dsCssPath);
+          console.log('✓ Removido dist/ds.css (não necessário)');
+        }
+      },
+    },
   ],
   build: {
     lib: {
@@ -46,6 +66,11 @@ export default defineConfig({
     sourcemap: true,
     outDir: 'dist',
     emptyOutDir: true,
+    // CSS code splitting desabilitado para gerar um único arquivo CSS
+    cssCodeSplit: false,
+  },
+  css: {
+    postcss: './postcss.config.js',
   },
   resolve: {
     alias: {
