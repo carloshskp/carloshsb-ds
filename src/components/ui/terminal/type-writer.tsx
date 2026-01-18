@@ -8,8 +8,8 @@ interface TypeWriterProps {
 
 export function TypeWriter({ text, speed = 50, delay = 0 }: TypeWriterProps): React.ReactElement {
   const [displayText, setDisplayText] = useState('');
-  const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const debounceTimeoutRef = useRef<number | null>(null);
+  const intervalRef = useRef<number | null>(null);
   const currentIndexRef = useRef(0);
   const liveRegionRef = useRef<HTMLSpanElement>(null);
 
