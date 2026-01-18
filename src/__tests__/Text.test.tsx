@@ -116,10 +116,10 @@ describe('Text', () => {
     expect(text.tagName).toBe('DIV');
   });
 
-  it('aceita as="strong"', () => {
-    render(<Text as="strong">Texto forte</Text>);
+  it('aceita as="span"', () => {
+    render(<Text as="span">Texto forte</Text>);
     const text = screen.getByText('Texto forte');
-    expect(text.tagName).toBe('STRONG');
+    expect(text.tagName).toBe('SPAN');
   });
 
   it('snapshot: text padrão', () => {

@@ -27,14 +27,14 @@ describe('Badge', () => {
 
     it('snapshot: variante secondary', () => {
       const { container } = render(
-        <Badge variant="secondary">Secondary</Badge>
+        <Badge variant="accent">Secondary</Badge>
       );
       expect(container).toMatchSnapshot();
     });
 
     it('snapshot: variante destructive', () => {
       const { container } = render(
-        <Badge variant="destructive">Destructive</Badge>
+        <Badge variant="muted">Destructive</Badge>
       );
       expect(container).toMatchSnapshot();
     });

@@ -13,7 +13,7 @@ exports[`Badge > Variantes > snapshot: variante default 1`] = `
 exports[`Badge > Variantes > snapshot: variante destructive 1`] = `
 <div>
   <span
-    class="inline-flex items-center justify-center font-medium transition-colors rounded-full px-3 py-1 text-sm"
+    class="inline-flex items-center justify-center font-medium transition-colors rounded-full bg-zinc-800-alpha-50 text-text-zinc-400 px-3 py-1 text-sm"
   >
     Destructive
   </span>
@@ -33,7 +33,7 @@ exports[`Badge > Variantes > snapshot: variante outline 1`] = `
 exports[`Badge > Variantes > snapshot: variante secondary 1`] = `
 <div>
   <span
-    class="inline-flex items-center justify-center font-medium transition-colors rounded-full px-3 py-1 text-sm"
+    class="inline-flex items-center justify-center font-medium transition-colors rounded-full bg-gradient-to-r from-accent-emerald to-accent-lime text-zinc-900 px-3 py-1 text-sm"
   >
     Secondary
   </span>

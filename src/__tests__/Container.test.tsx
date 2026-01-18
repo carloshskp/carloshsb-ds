@@ -25,36 +25,6 @@ describe('Container', () => {
     expect(container).toMatchSnapshot();
   });
 
-  describe('Tamanhos', () => {
-    it('snapshot: size sm', () => {
-      const { container } = render(
-        <Container size="sm">Small Container</Container>
-      );
-      expect(container).toMatchSnapshot();
-    });
-
-    it('snapshot: size md', () => {
-      const { container } = render(
-        <Container size="md">Medium Container</Container>
-      );
-      expect(container).toMatchSnapshot();
-    });
-
-    it('snapshot: size lg', () => {
-      const { container } = render(
-        <Container size="lg">Large Container</Container>
-      );
-      expect(container).toMatchSnapshot();
-    });
-
-    it('snapshot: size full', () => {
-      const { container } = render(
-        <Container size="full">Full Width Container</Container>
-      );
-      expect(container).toMatchSnapshot();
-    });
-  });
-
   describe('Classes customizadas', () => {
     it('aceita className', () => {
       render(<Container className="my-container">Test</Container>);

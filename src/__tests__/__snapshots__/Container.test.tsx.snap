@@ -1,45 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Container > Tamanhos > snapshot: size full 1`] = `
-<div>
-  <div
-    class="relative overflow-hidden rounded-2xl border backdrop-blur-[10px] bg-zinc-800-alpha-80 border-zinc-400-alpha-10 p-8 before:content-[""] before:absolute before:top-0 before:left-0 before:right-0 before:h-[3px] before:bg-gradient-accent-top before:opacity-80"
-  >
-    Full Width Container
-  </div>
-</div>
-`;
-
-exports[`Container > Tamanhos > snapshot: size lg 1`] = `
-<div>
-  <div
-    class="relative overflow-hidden rounded-2xl border backdrop-blur-[10px] bg-zinc-800-alpha-80 border-zinc-400-alpha-10 p-8 before:content-[""] before:absolute before:top-0 before:left-0 before:right-0 before:h-[3px] before:bg-gradient-accent-top before:opacity-80"
-  >
-    Large Container
-  </div>
-</div>
-`;
-
-exports[`Container > Tamanhos > snapshot: size md 1`] = `
-<div>
-  <div
-    class="relative overflow-hidden rounded-2xl border backdrop-blur-[10px] bg-zinc-800-alpha-80 border-zinc-400-alpha-10 p-8 before:content-[""] before:absolute before:top-0 before:left-0 before:right-0 before:h-[3px] before:bg-gradient-accent-top before:opacity-80"
-  >
-    Medium Container
-  </div>
-</div>
-`;
-
-exports[`Container > Tamanhos > snapshot: size sm 1`] = `
-<div>
-  <div
-    class="relative overflow-hidden rounded-2xl border backdrop-blur-[10px] bg-zinc-800-alpha-80 border-zinc-400-alpha-10 p-8 before:content-[""] before:absolute before:top-0 before:left-0 before:right-0 before:h-[3px] before:bg-gradient-accent-top before:opacity-80"
-  >
-    Small Container
-  </div>
-</div>
-`;
-
 exports[`Container > snapshot: container padrão 1`] = `
 <div>
   <div

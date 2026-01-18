@@ -47,7 +47,7 @@ exports[`Card > Variantes > snapshot: variante default 1`] = `
 exports[`Card > Variantes > snapshot: variante ghost 1`] = `
 <div>
   <div
-    class="relative overflow-hidden rounded-xl border backdrop-blur-[10px] transition-all duration-300"
+    class="relative overflow-hidden border backdrop-blur-[10px] transition-all duration-300 bg-zinc-800-alpha-50 border-zinc-400-alpha-20 p-6 rounded-lg hover:bg-zinc-800-alpha-50 hover:border-zinc-400-alpha-30"
   >
     Ghost Card
   </div>
@@ -57,7 +57,7 @@ exports[`Card > Variantes > snapshot: variante ghost 1`] = `
 exports[`Card > Variantes > snapshot: variante outline 1`] = `
 <div>
   <div
-    class="relative overflow-hidden rounded-xl border backdrop-blur-[10px] transition-all duration-300"
+    class="relative overflow-hidden rounded-xl border backdrop-blur-[10px] transition-all duration-300 bg-zinc-800-alpha-80 border-zinc-400-alpha-10 p-6 cursor-pointer hover:translate-y-[-4px] hover:border-zinc-400-alpha-30 hover:shadow-ds-card-hover focus:outline-2 focus:outline-accent-lime focus:outline-offset-2 before:content-[""] before:absolute before:top-0 before:left-0 before:right-0 before:h-0.5 before:bg-gradient-accent-top before:opacity-60 before:transition-all before:duration-300 before:scale-x-0 before:origin-left hover:before:scale-x-100 hover:before:opacity-80"
   >
     Outline Card
   </div>

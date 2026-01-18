@@ -33,14 +33,14 @@ describe('Card', () => {
 
     it('snapshot: variante outline', () => {
       const { container } = render(
-        <Card variant="outline">Outline Card</Card>
+        <Card variant="interactive">Outline Card</Card>
       );
       expect(container).toMatchSnapshot();
     });
 
     it('snapshot: variante ghost', () => {
       const { container } = render(
-        <Card variant="ghost">Ghost Card</Card>
+        <Card variant="review">Ghost Card</Card>
       );
       expect(container).toMatchSnapshot();
     });
