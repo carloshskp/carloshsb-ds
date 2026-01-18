@@ -1,0 +1,50 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as ButtonStories from './Button.stories';
+import * as FormControls from './FormControls.stories';
+import * as ChoiceStories from './Choices.stories';
+
+<Meta title="Primitives/Guide" />
+
+# Primitives de formulário
+
+Coleção de componentes reutilizáveis que substituem as classes ad-hoc do formulário de contato.
+
+## Botões
+
+<Canvas of={ButtonStories.Primary} sourceState="shown" />
+<Canvas of={ButtonStories.WithIcons} sourceState="shown" />
+
+- Variantes disponíveis: `primary`, `secondary`, `ghost`, `destructive`.
+- `isLoading` ativa spinner acessível (mantém largura e oculta texto com `sr-only`).
+- Para links estilizados como botão, use `<Button asChild>`? (planejado) — por agora utilize `<Link>` + classes do Button.
+
+## Campos de texto
+
+<Canvas of={FormControls.InputField} sourceState="shown" />
+<Canvas of={FormControls.TextareaField} sourceState="shown" />
+
+- Sempre combine `Input`/`Textarea` com `Field.Root` + `Field.Control` para garantir IDs e `aria-describedby`.
+- `invalid` pode ser passado direto para estados manuais, mas preferencialmente derive de `Field`.
+
+## Checkboxes e Radios
+
+<Canvas of={ChoiceStories.CheckboxList} sourceState="shown" />
+<Canvas of={ChoiceStories.RadioList} sourceState="shown" />
+
+- Usam inputs nativos com `accent-color: accent-lime`.
+- Labels aceitam descrição auxiliar para detalhar cada opção.
+- Quando agrupados, mantenha o grupo dentro de um `fieldset` + `legend` para semântica adicional (futuro Fieldset utilitário).
+
+## Acessibilidade
+
+- Todos os controles recebem `focus-visible` consistente (`--ds-focus-ring`).
+- `Field.Control` injeta automaticamente `aria-invalid`, `aria-describedby` e IDs.
+- Hit target mínimo: 44px (botões, checkbox/radio + padding).
+
+## Como migrar o formulário de contato
+
+1. Reutilize `Field.Root` para cada pergunta.
+2. Substitua as classes `contact-input`, `contact-textarea`, etc., pelos novos componentes.
+3. Use `Button` (variants `secondary` e `primary`) para ações anterior/próximo.
+4. Descontinue o CSS duplicado do formulário conforme refatorar para os primitives.
+

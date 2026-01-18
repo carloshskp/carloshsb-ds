@@ -1,0 +1,117 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Overview" parameters={{ layout: 'fullscreen' }} />
+
+export const ColorSwatch = ({ token, label, usage, utility }) => (
+  <div
+    style={{
+      border: '1px solid rgb(39 39 42 / 0.25)',
+      borderRadius: '0.75rem',
+      overflow: 'hidden',
+      background: 'rgb(24 24 27 / 0.6)',
+    }}
+  >
+    <div
+      style={{
+        height: '96px',
+        background: `hsl(var(${token}))`,
+        boxShadow: token.includes('shadow')
+          ? `var(${token})`
+          : undefined,
+      }}
+    />
+    <div style={{ padding: '0.75rem 1rem' }}>
+      <p style={{ margin: 0, fontWeight: 600 }}>{label}</p>
+      <p style={{ margin: '0.25rem 0', color: '#a1a1aa' }}>{usage}</p>
+      <code style={{ display: 'block', fontSize: '0.85rem' }}>{token}</code>
+      {utility ? (
+        <code
+          style={{
+            display: 'inline-flex',
+            marginTop: '0.35rem',
+            padding: '0.1rem 0.35rem',
+            borderRadius: '0.35rem',
+            background: 'rgb(39 39 42 / 0.65)',
+          }}
+        >
+          {utility}
+        </code>
+      ) : null}
+    </div>
+  </div>
+);
+
+export const ShadowCard = ({ label, token, value }) => (
+  <div
+    style={{
+      padding: '1.25rem',
+      borderRadius: '1rem',
+      background: 'hsl(var(--ds-surface-glass))',
+      boxShadow: value,
+    }}
+  >
+    <p style={{ margin: 0, fontWeight: 600 }}>{label}</p>
+    <code style={{ fontSize: '0.85rem' }}>{token}</code>
+  </div>
+);
+
+# Foundations
+
+Esses tokens estão definidos em `src/index.css` e mapeados no Tailwind via `tailwind.config.js`. Use-os como única fonte de verdade para cores, superfícies, sombras e feedback visual.
+
+## Cores e superfícies
+
+<div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
+  <ColorSwatch token="--ds-surface-1" label="Surface 1" usage="Plano de fundo base" utility="bg-surface" />
+  <ColorSwatch token="--ds-surface-2" label="Surface 2" usage="Cards/containers" utility="bg-surface-soft" />
+  <ColorSwatch token="--ds-surface-glass" label="Surface Glass" usage="Glassmorphism (SideNav, Modal, Terminal)" utility="bg-surface-glass" />
+  <ColorSwatch token="--ds-surface-overlay" label="Surface Overlay" usage="Overlays e backdrop" utility="bg-surface-overlay" />
+  <ColorSwatch token="--ds-accent-emerald" label="Accent Emerald" usage="Gradientes/fills principais" utility="text-accent-emerald" />
+  <ColorSwatch token="--ds-accent-lime" label="Accent Lime" usage="Bordas/linhas energizadas" utility="text-accent-lime" />
+  <ColorSwatch token="--ds-accent-amber" label="Accent Amber" usage="Alertas brand-safe" utility="text-accent-amber" />
+  <ColorSwatch token="--ds-focus-ring" label="Focus Ring" usage="Outline de foco global" utility="ring-focus-ring" />
+</div>
+
+> Use sempre classes Tailwind (`bg-surface`, `text-accent-lime`, `ring-focus-ring`, etc.) para manter rastreabilidade. Quando precisar de transparências ou gradientes customizados em SCSS, derive a cor a partir do token correspondente.
+
+## Tipografia
+
+- O body usa `font-family` herdado do `index.css` e `--foreground` como cor base.
+- Utilize `text-foreground`, `text-muted-foreground` e `text-primary-foreground` para estados de contraste diferentes.
+- Títulos e labels críticos recebem `.terminal-title` ou utilitários Tailwind para manter contraste mínimo AA.
+
+## Raios e espaçamento
+
+- `--radius` define o raio global (8px). Tailwind expõe `rounded-lg|md|sm` com base no mesmo token para manter consistência entre modais, terminal e botões.
+- Para shapes circulares (ex.: controles do terminal) continue usando `rounded-full`.
+
+## Sombras
+
+<div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', marginBottom: '1.5rem' }}>
+  <ShadowCard label="Shadow Soft" token="shadow-ds-soft" value="0 12px 40px hsla(var(--ds-shadow-soft))" />
+  <ShadowCard label="Shadow Strong" token="shadow-ds-strong" value="0 25px 60px hsla(var(--ds-shadow-strong))" />
+</div>
+
+- `shadow-ds-soft`: use em botões elevados, caixas pequenas e tooltips.
+- `shadow-ds-strong`: use em elementos flutuantes grandes (Terminal, SideNav, modais).
+
+## Acessibilidade (baseline global)
+
+A folha `src/styles/a11y.scss` é importada globalmente (tanto no app quanto no Storybook) e garante:
+
+- `*:focus-visible` e interativos (`a`, `button`) com outline `hsl(var(--ds-focus-ring))`.
+- `sr-only`, redução de movimento (`prefers-reduced-motion`) e alto contraste (`prefers-contrast: high`).
+- Targets mínimos de 44×44px para elementos com `role="button"` ou links importantes.
+
+Nunca sobrescreva o outline usando `outline: none`. Se precisar de um estilo personalizado, derive a cor de `--ds-focus-ring`.
+
+## Motion & media queries
+
+- **Redução de movimento**: animações essenciais devem checar `prefers-reduced-motion`. Os arquivos `contact.scss`, `terminal.scss` e `card-modal.scss` já interrompem keyframes quando esse media query é verdadeiro.
+- **Contraste**: `prefers-contrast: high` troca bordas para `currentColor`, garantindo maior visibilidade.
+
+## Dark mode
+
+- O modo escuro é aplicado via classe `.dark` no elemento `<html>`. O toolbar do Storybook alterna automaticamente essa classe para que os tokens reflitam as duas variações.
+- Quando adicionar novos tokens, sempre defina o par `:root` (modo claro) e `.dark` (modo escuro) no `index.css`.
+

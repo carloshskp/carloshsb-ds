@@ -1,0 +1,165 @@
+.side-nav {
+  position: fixed;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  z-index: 8;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 1.25rem;
+  background: var(--ds-gradient-accent-diagonal);
+  border: 1px solid hsl(var(--ds-emerald-500-alpha-60));
+  box-shadow: 
+    var(--ds-shadow-side-nav),
+    inset 0 1px 0 hsl(var(--ds-text-zinc-100) / 0.25),
+    0 0 0 1px hsl(var(--ds-emerald-500-alpha-15));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.side-nav:hover {
+  box-shadow: 
+    var(--ds-shadow-side-nav-hover),
+    inset 0 1px 0 hsl(var(--ds-text-zinc-100) / 0.3),
+    0 0 0 1px hsl(var(--ds-emerald-500-alpha-20));
+  border-color: hsl(var(--ds-emerald-500-alpha-85));
+}
+
+@media (min-width: 768px) {
+  .side-nav {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.side-nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1rem;
+  color: hsl(var(--ds-text-zinc-100));
+  background: hsl(var(--ds-emerald-500-alpha-25));
+  border: 1px solid hsl(var(--ds-emerald-500-alpha-50));
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: visible;
+}
+
+.side-nav__link::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 1rem;
+  background: var(--ds-gradient-accent-diagonal);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.side-nav__link:hover {
+  transform: translateY(-3px) scale(1.05);
+  background: hsl(var(--ds-emerald-500-alpha-40));
+  border-color: hsl(var(--ds-emerald-500-alpha-85));
+  box-shadow: 
+    0 12px 40px hsl(var(--ds-emerald-500-alpha-40)),
+    0 0 20px hsl(var(--ds-emerald-500-alpha-30));
+  color: hsl(var(--ds-text-zinc-100));
+}
+
+.side-nav__link:hover::before {
+  opacity: 1;
+}
+
+.side-nav__link--active {
+  background: var(--ds-gradient-accent-diagonal-strong);
+  border-color: hsl(var(--ds-emerald-500-alpha-90));
+  box-shadow: 
+    0 8px 25px hsl(var(--ds-emerald-500-alpha-40)),
+    inset 0 1px 0 hsl(var(--ds-text-zinc-100) / 0.3),
+    0 0 15px hsl(var(--ds-emerald-500-alpha-40));
+  color: hsl(var(--ds-text-zinc-100));
+}
+
+.side-nav__link--active::after {
+  content: '';
+  position: absolute;
+  left: -0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: var(--ds-gradient-accent-vertical);
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 10px hsl(var(--ds-emerald-500-alpha-60));
+}
+
+.side-nav__link:focus-visible {
+  outline: 2px solid hsl(var(--ds-emerald-500-alpha-90));
+  outline-offset: 4px;
+  box-shadow: 
+    0 0 0 6px hsl(var(--ds-emerald-500-alpha-25)),
+    0 12px 40px hsl(var(--ds-emerald-500-alpha-40));
+}
+
+.side-nav__icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+
+.side-nav__link:hover .side-nav__icon {
+  transform: scale(1.1);
+}
+
+.side-nav__link--active .side-nav__icon {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 4px hsl(var(--ds-emerald-500-alpha-60)));
+}
+
+.side-nav__tooltip {
+  position: absolute;
+  left: calc(100% + 0.75rem);
+  top: 50%;
+  transform: translateY(-50%) translateX(-10px);
+  background: hsl(var(--ds-zinc-900-alpha-95));
+  color: hsl(var(--ds-text-zinc-100));
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid hsl(var(--ds-emerald-500-alpha-30));
+  box-shadow: 0 4px 12px hsl(var(--ds-shadow-soft));
+  z-index: 1000;
+}
+
+.side-nav__tooltip::before {
+  content: '';
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-right-color: hsl(var(--ds-zinc-900-alpha-95));
+}
+
+.side-nav__link:hover .side-nav__tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .side-nav,
+  .side-nav__link,
+  .side-nav__icon,
+  .side-nav__tooltip {
+    transition: none;
+  }
+}

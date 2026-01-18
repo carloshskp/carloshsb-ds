@@ -1,0 +1,67 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as TerminalStories from './Terminal.stories';
+
+<Meta title="Components/Terminal/Guide" />
+
+# Terminal – Guia de estilo
+
+Painel inspirado em terminais de comando, usado para mensagens de destaque (hero da home, páginas de erro e contato). Este guia amplia o arquivo `docs/style-guide-terminal.md`, agora versionado dentro do Storybook.
+
+## Anatomia
+
+1. **TerminalContainer** — wrapper responsável por posicionamento, visibilidade e atributos ARIA.
+2. **TerminalHeader** — barra superior com título curto e `TerminalControls`.
+3. **TerminalControls** — botões de minimizar, maximizar/restaurar e fechar.
+4. **TerminalBody** — conteúdo textual, suporta string (ativa `TypeWriter`) ou JSX.
+
+<Canvas of={TerminalStories.Default} sourceState="shown" />
+
+## Tokens e superfícies
+
+- **Vidro base**: `bg-surface-glass`, borda `border-border-soft`, sombra `shadow-ds-strong`.
+- **Linha superior**: gradiente `greenyellow → darkgreen` compartilhado com `card-modal` e `contact` steps.
+- **Controles**: usam `terminal-controls__button` (SCSS) e cores derivadas de `accent-lime` e `destructive`.
+- **Cursor do TypeWriter**: `#a3e635` (`accent-lime`).
+
+Quando criar variantes, derive sempre dos tokens descritos em Foundations para manter contraste e consistência.
+
+## Estados suportados
+
+| Estado | Descrição | Considerações |
+| --- | --- | --- |
+| Padrão | Terminal flutuante, largura responsiva (`w-[72vw]` no desktop). | Use `isVisible` e `isMinimized=false`. |
+| Maximizado | Ocupa toda a tela (`isMaximized=true`). | Habilite `Alt + Shift + M`. |
+| Minimizado | Mantém apenas o header visível. | `aria-hidden` aplicado ao corpo e altura fixa de `2.5rem`. |
+| Fechado | `isVisible=false` remove o elemento do DOM. | Útil p/ esconder após confirmação. |
+
+<Canvas of={TerminalStories.Maximized} sourceState="shown" />
+<Canvas of={TerminalStories.Minimized} sourceState="shown" />
+
+## Acessibilidade
+
+- Atalhos implementados no `App.tsx`:
+  - `Alt + M`: minimiza.
+  - `Alt + Shift + M`: maximiza/restaura.
+  - `Alt + F4` / `Esc`: fecha.
+- `TerminalContainer` expõe `role="dialog"`, `aria-expanded` e `aria-label`.
+- `TerminalBody` muda `aria-hidden` quando minimizado.
+- `TerminalControls` gerencia `aria-pressed` para o botão de maximizar.
+- Outline global vem de `--ds-focus-ring` (vide Foundations / A11y).
+
+## Boas práticas
+
+1. Sempre reutilize os componentes expostos em `@/components/ui/terminal`.
+2. Ajustes de layout devem ser feitos via `className` no container (usar utilitários como `!relative`, `!left-0`, etc.).
+3. Não reproduza manualmente gradientes/cores; promova novos valores a tokens se necessário.
+4. Teste com `prefers-reduced-motion` — o blur extra é desligado automaticamente para esses usuários.
+
+## Exemplo com conteúdo rico
+
+<Canvas of={TerminalStories.JSXContent} sourceState="shown" />
+
+## Playground interativo
+
+Use o canvas abaixo para validar estados e animações antes de incorporar o terminal em novas páginas.
+
+<Canvas of={TerminalStories.Interactive} sourceState="shown" />
+

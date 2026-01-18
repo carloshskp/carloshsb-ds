@@ -1,0 +1,18 @@
+/**
+ * Bundle principal de estilos do Design System
+ * 
+ * Este arquivo importa todos os estilos necessários para o Design System:
+ * - CSS variables e Tailwind base
+ * - Estilos específicos de componentes (SCSS)
+ */
+
+/* CSS Variables e Tailwind base */
+@import './index.css';
+
+/* Estilos de componentes (SCSS) */
+@import './a11y.scss';
+@import './animations.scss';
+@import './card-modal.scss';
+@import './side-nav.scss';
+@import './skip-links.scss';
+@import './terminal.scss';

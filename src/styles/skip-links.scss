@@ -1,0 +1,41 @@
+.skip-links {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  z-index: 10000;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  
+  .skip-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: hsl(var(--foreground));
+    color: hsl(var(--background));
+    padding: 1rem 2rem;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid hsl(var(--background));
+    border-radius: 0 0 4px 0;
+    z-index: 10001;
+    transform: translateY(-100%);
+    transition: transform 0.2s ease-in-out;
+    
+    &:focus {
+      transform: translateY(0);
+      outline: 3px solid hsl(var(--ds-focus-ring));
+      outline-offset: 2px;
+    }
+    
+    &:not(:focus) {
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
+  }
+}

@@ -1,0 +1,107 @@
+/* Estilos de Acessibilidade */
+
+/* Screen Reader Only - oculta visualmente mas mantém acessível para leitores de tela */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus visible - melhora a visibilidade do foco para navegação por teclado */
+*:focus-visible {
+  outline: 2px solid hsl(var(--ds-focus-ring));
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Remove outline padrão e adiciona customizado */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Melhora contraste para links */
+a {
+  transition: color 0.2s ease-in-out, text-decoration 0.2s ease-in-out;
+}
+
+a:focus {
+  outline: 2px solid hsl(var(--ds-focus-ring));
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Melhora contraste para botões */
+button {
+  transition: background-color 0.2s ease-in-out, outline 0.2s ease-in-out;
+}
+
+button:focus-visible {
+  outline: 2px solid hsl(var(--ds-focus-ring));
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Reduzir animações para usuários que preferem movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-pulse {
+    animation: none !important;
+  }
+}
+
+/* Alto contraste - melhora visibilidade */
+@media (prefers-contrast: high) {
+  * {
+    border-color: currentColor !important;
+  }
+  
+  button,
+  a {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Melhora visibilidade de elementos interativos */
+[role="button"],
+[role="link"],
+button,
+a {
+  margin: 12px 4px;
+  min-height: 32px;
+  min-width: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Melhora leitura de texto */
+p, span, div {
+  line-height: 1.6;
+}
+
+/* Garante que elementos importantes tenham contraste adequado */
+.terminal-title {
+  color: hsl(var(--ds-text-zinc-100)); /* cor do terminal para consistência visual */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: hsl(var(--ds-text-zinc-100)); /* mantém contraste alto em ambos os temas */
+}

@@ -1,0 +1,37 @@
+@mixin fade-in-blur($duration: 1.5s, $blur-amount: 10px, $ease-type: ease-out) {
+  will-change: transform, opacity;
+  animation: fadeInBlur $duration $ease-type backwards;
+
+  @keyframes fadeInBlur {
+    0% {
+      opacity: 0;
+      // Otimizado: reduzido blur e usando transform para melhor performance
+      filter: blur(2px) grayscale(.5);
+      transform: translateX(-50%) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      filter: blur(0px) grayscale(1);
+      transform: translateX(0) scale(1);
+    }
+  }
+}
+
+@mixin fade-out-blur($duration: 1.5s, $blur-amount: 10px, $ease-type: ease-in) {
+  will-change: transform, opacity;
+  animation: fadeOutBlur $duration $ease-type backwards;
+
+  @keyframes fadeOutBlur {
+    0% {
+      opacity: 1;
+      // Otimizado: reduzido blur e usando transform para melhor performance
+      filter: blur(2px) grayscale(1);
+      transform: translateX(0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(100%) scale(0.95);
+      display: none;
+    }
+  }
+}

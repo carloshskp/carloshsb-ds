@@ -1,0 +1,103 @@
+// src/styles/terminal.scss
+
+// Container principal do terminal
+.terminal-container {
+  position: relative;
+  border-radius: 0.75rem; // ~12px, semelhante ao modal e side-nav
+  border: 1px solid hsl(var(--ds-zinc-400-alpha-35));
+  background:
+    radial-gradient(circle at top left, hsl(var(--ds-lime-400-alpha-18)), transparent 55%),
+    hsl(var(--ds-zinc-900-alpha-96));
+  box-shadow:
+    var(--ds-shadow-terminal),
+    inset 0 1px 0 hsl(var(--ds-text-zinc-100) / 0.06);
+  overflow: hidden;
+}
+
+// Linha de destaque superior (igual ao modal)
+.terminal-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--ds-gradient-accent-top);
+  opacity: 0.85;
+}
+
+// Cabeçalho do terminal
+.terminal-header {
+  background: linear-gradient(135deg, hsl(var(--ds-zinc-800-alpha-98)), hsl(var(--ds-zinc-900-alpha-98)));
+  border-bottom: 1px solid hsl(var(--ds-zinc-800-alpha-95));
+  color: hsl(var(--ds-text-zinc-100));
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+// Corpo do terminal
+.terminal-body {
+  background: radial-gradient(circle at top left, hsl(var(--ds-lime-400-alpha-08)), hsl(var(--ds-zinc-900-alpha-98)));
+  backdrop-filter: blur(5px); // blur reduzido para melhor performance
+  -webkit-backdrop-filter: blur(5px);
+  opacity: 0.9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-body {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+// Controles do terminal (minimizar, maximizar, fechar)
+.terminal-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.terminal-controls__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 9999px; // pill/circle
+  background: hsl(var(--ds-zinc-800-alpha-95));
+  border: 1px solid hsl(var(--ds-zinc-800-alpha-95));
+  color: hsl(var(--ds-text-zinc-200));
+  padding: 0;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.terminal-controls__button:hover {
+  background: hsl(var(--ds-zinc-800-alpha-98));
+  border-color: hsl(var(--ds-zinc-500));
+  transform: translateY(-1px);
+}
+
+.terminal-controls__button--close {
+  background: hsl(var(--ds-red-600-alpha-96));
+  border-color: hsl(var(--ds-red-500-alpha-90));
+  color: hsl(var(--ds-red-500-alpha-100));
+}
+
+.terminal-controls__button--close:hover {
+  background: hsl(var(--ds-red-700-alpha-98));
+  border-color: hsl(var(--ds-red-500-alpha-96));
+}
+
+// Cursor do efeito typewriter
+.typewriter {
+  .cursor {
+    margin-left: 2px;
+    font-weight: bold;
+    color: hsl(var(--ds-text-zinc-200));
+  }
+}
