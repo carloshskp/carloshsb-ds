@@ -42,6 +42,8 @@ ds/
 
 ## Instalação e Uso
 
+**Nota:** Esta biblioteca é ESM-only (ES Modules). Para usar em projetos CommonJS, você precisará usar um bundler moderno (Vite, Webpack 5+, ou similar) ou configurar seu projeto para suportar ESM.
+
 ### Desenvolvimento Local
 
 A biblioteca já está sendo consumida pela aplicação principal através de imports relativos:
