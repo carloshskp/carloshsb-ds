@@ -3,7 +3,7 @@ import {cn} from "../../utils";
 import "../../styles/side-nav.scss";
 import {Link, useLocation} from "react-router-dom";
 
-export function SideNav() {
+export function SideNav({ className }: { className?: string }) {
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
 
@@ -11,7 +11,9 @@ export function SideNav() {
     <nav
       className={cn(
         "side-nav",
-        "hidden md:flex"
+        "hidden md:flex",
+        "md:fixed md:top-[50%] md:left-[2.5rem] md:-translate-y-1/2 z-50",
+        className
       )}
       id="main-navigation"
       aria-label="Navegação principal"

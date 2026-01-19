@@ -77,13 +77,14 @@ type LabelProps = {
   children: ReactNode;
   htmlFor?: string;
   required?: boolean;
+  className?: string;
 };
 
-function FieldLabel({ children, htmlFor, required }: LabelProps) {
+function FieldLabel({ children, htmlFor, required, className }: LabelProps) {
   const ctx = useContext(FieldContext);
   const targetId = htmlFor ?? ctx?.inputId;
   return (
-    <label htmlFor={targetId} className="block text-sm font-medium text-text-zinc-200">
+    <label htmlFor={targetId} className={cn("block text-sm font-medium text-text-zinc-200", className)}>
       {children}
       {required ? <span className="ml-1 text-accent-amber" aria-hidden="true">*</span> : null}
     </label>
@@ -93,14 +94,15 @@ function FieldLabel({ children, htmlFor, required }: LabelProps) {
 type HintProps = {
   children: ReactNode;
   id?: string;
+  className?: string;
 };
 
-function FieldHint({ children, id }: HintProps) {
+function FieldHint({ children, id, className }: HintProps) {
   const ctx = useContext(FieldContext);
   return (
     <p
       id={id ?? ctx?.hintId}
-      className="text-sm text-text-zinc-400"
+      className={cn("text-sm text-text-zinc-400", className)}
     >
       {children}
     </p>
@@ -110,14 +112,15 @@ function FieldHint({ children, id }: HintProps) {
 type ErrorProps = {
   children: ReactNode;
   id?: string;
+  className?: string;
 };
 
-function FieldError({ children, id }: ErrorProps) {
+function FieldError({ children, id, className }: ErrorProps) {
   const ctx = useContext(FieldContext);
   return (
     <p
       id={id ?? ctx?.errorId}
-      className="text-sm text-destructive"
+      className={cn("text-sm text-destructive", className)}
       role="alert"
     >
       {children}
@@ -164,4 +167,3 @@ export const Field = {
   Error: FieldError,
   Control,
 };
-

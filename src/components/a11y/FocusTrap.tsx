@@ -5,6 +5,7 @@ interface FocusTrapProps {
   isActive?: boolean;
   initialFocusRef?: React.RefObject<HTMLElement | null>;
   returnFocusRef?: React.RefObject<HTMLElement | null>;
+  className?: string;
 }
 
 /**
@@ -23,7 +24,8 @@ export function FocusTrap({
   children, 
   isActive = true, 
   initialFocusRef,
-  returnFocusRef 
+  returnFocusRef,
+  className
 }: FocusTrapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const previousActiveElementRef = useRef<HTMLElement | null>(null);
@@ -93,9 +95,8 @@ export function FocusTrap({
   }, [isActive, initialFocusRef, returnFocusRef]);
 
   return (
-    <div ref={containerRef} tabIndex={-1}>
+    <div ref={containerRef} tabIndex={-1} className={className}>
       {children}
     </div>
   );
 }
-

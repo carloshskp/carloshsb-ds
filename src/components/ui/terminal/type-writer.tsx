@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
+import { cn } from '../../../utils';
 
 interface TypeWriterProps {
   text: string;
   speed?: number;
   delay?: number;
+  className?: string;
 }
 
-export function TypeWriter({ text, speed = 50, delay = 0 }: TypeWriterProps): React.ReactElement {
+export function TypeWriter({ text, speed = 50, delay = 0, className }: TypeWriterProps): React.ReactElement {
   const [displayText, setDisplayText] = useState('');
   const debounceTimeoutRef = useRef<number | null>(null);
   const intervalRef = useRef<number | null>(null);
@@ -98,14 +100,12 @@ export function TypeWriter({ text, speed = 50, delay = 0 }: TypeWriterProps): Re
   }, [displayText, text]);
 
   return (
-    <>
-      <span className="typewriter" aria-live="polite" aria-atomic="true">
-        {displayText}
-        <span className="cursor animate-pulse" aria-hidden="true">_</span>
-      </span>
+    <span className={cn("typewriter", className)} aria-live="polite" aria-atomic="true">
+      {displayText}
+      <span className="cursor animate-pulse" aria-hidden="true">_</span>
       <span ref={liveRegionRef} className="sr-only" aria-live="polite" aria-atomic="true">
         {displayText === text ? text : ''}
       </span>
-    </>
+    </span>
   );
 }

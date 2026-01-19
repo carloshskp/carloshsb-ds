@@ -14,8 +14,8 @@ export function TerminalBody({ className, children, isMinimized }: TerminalBodyP
     <main 
       className={twMerge(
         'w-full text-text-zinc-200 terminal-body terminal font-mono text-sm leading-relaxed px-3 py-2',
-        className,
         isMinimized ? 'sm:h-0 sm:invisible' : 'sm:h-auto sm:visible',
+        className,
       )}
       role="region"
       aria-label="Conteúdo do terminal"
