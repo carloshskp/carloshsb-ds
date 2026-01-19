@@ -116,7 +116,7 @@
     "version:patch": "yarn version patch",
     "version:minor": "yarn version minor",
     "version:major": "yarn version major",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook --output-dir storybook-static"
   },
   "keywords": [
     "design-system",

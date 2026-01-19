@@ -42,8 +42,22 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable --inline-builds
 
+      - name: Clean previous build
+        run: rm -rf storybook-static
+
       - name: Build Storybook
         run: yarn build-storybook
+
+      - name: Validate build
+        run: |
+          if [ ! -d "storybook-static" ]; then
+            echo "Error: storybook-static directory was not created"
+            exit 1
+          fi
+          if [ ! -f "storybook-static/index.html" ]; then
+            echo "Error: storybook-static/index.html was not found"
+            exit 1
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

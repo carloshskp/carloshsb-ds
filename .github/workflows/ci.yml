@@ -97,3 +97,41 @@ jobs:
 
       - name: Build
         run: yarn build
+
+  build-storybook:
+    name: Build Storybook
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Prepare Yarn version
+        run: corepack prepare yarn@4.12.0 --activate
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION || '20.x' }}
+          cache: 'yarn'
+          cache-dependency-path: yarn.lock
+
+      - name: Install dependencies
+        run: yarn install --immutable --inline-builds
+
+      - name: Build Storybook
+        run: yarn build-storybook
+
+      - name: Validate Storybook build
+        run: |
+          if [ ! -d "storybook-static" ]; then
+            echo "Error: storybook-static directory was not created"
+            exit 1
+          fi
+          if [ ! -f "storybook-static/index.html" ]; then
+            echo "Error: storybook-static/index.html was not found"
+            exit 1
+          fi
+          echo "Storybook build validated successfully"
