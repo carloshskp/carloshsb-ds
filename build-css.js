@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import postcss from 'postcss';
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
-import sass from 'sass';
+import * as sass from 'sass';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

@@ -1,0 +1,121 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - ${{ vars.BASE_BRANCH || 'main' }}
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+  id-token: write
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION || '20.x' }}
+          registry-url: ${{ vars.NPM_REGISTRY_URL || 'https://registry.npmjs.org' }}
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+
+      - name: Run tests
+        run: yarn test:coverage
+
+      - name: Determine npm distribution tag
+        id: npm-dist-tag
+        run: |
+          if [ -d .changesets ] && [ "$(ls -A .changesets/*.md 2>/dev/null)" ]; then
+            if grep -r -i "prerelease\|beta" .changesets/*.md 2>/dev/null; then
+              echo "tag=${{ vars.NPM_BETA_TAG || 'beta' }}" >> $GITHUB_OUTPUT
+              echo "Found beta/prerelease changeset"
+            elif grep -r -i "experimental\|next" .changesets/*.md 2>/dev/null; then
+              echo "tag=${{ vars.NPM_NEXT_TAG || 'next' }}" >> $GITHUB_OUTPUT
+              echo "Found experimental/next changeset"
+            else
+              echo "tag=${{ vars.NPM_DEFAULT_TAG || 'latest' }}" >> $GITHUB_OUTPUT
+              echo "Found standard changeset"
+            fi
+          else
+            echo "tag=${{ vars.NPM_DEFAULT_TAG || 'latest' }}" >> $GITHUB_OUTPUT
+            echo "No changesets found, using default tag"
+          fi
+
+      - name: Create Release PR or Publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: npx changeset version
+          publish: |
+            if [ "${{ steps.npm-dist-tag.outputs.tag }}" != "${{ vars.NPM_DEFAULT_TAG || 'latest' }}" ]; then
+              npx changeset publish --tag ${{ steps.npm-dist-tag.outputs.tag }}
+            else
+              npx changeset publish
+            fi
+          createGithubReleases: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Get published version
+        id: version
+        if: steps.changesets.outputs.published == 'true'
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Published version: $VERSION"
+
+      - name: Create and push git tag with version
+        if: steps.changesets.outputs.published == 'true' && vars.AUTO_PUSH_GIT_TAGS != 'false'
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          TAG_PREFIX="${{ vars.GIT_TAG_PREFIX || 'v' }}"
+          GIT_TAG="${TAG_PREFIX}${VERSION}"
+
+          # Verifica se a tag já existe
+          if git rev-parse "$GIT_TAG" >/dev/null 2>&1; then
+            echo "Tag $GIT_TAG already exists"
+          else
+            git tag -a "$GIT_TAG" -m "Release $GIT_TAG"
+            git push origin "$GIT_TAG"
+            echo "Created and pushed tag: $GIT_TAG"
+          fi
+
+      - name: Verify npm tags
+        if: steps.changesets.outputs.published == 'true'
+        run: |
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+          VERSION="${{ steps.version.outputs.version }}"
+          DIST_TAG="${{ steps.npm-dist-tag.outputs.tag }}"
+
+          echo "Verifying npm tags for $PACKAGE_NAME@$VERSION"
+          echo "Distribution tag: $DIST_TAG"
+          echo "Version tag: $VERSION"
+
+          # Verifica tags no npm (requer npm view)
+          npm view "$PACKAGE_NAME" dist-tags || echo "Package not yet available in registry"
+
+      - name: Output release information
+        if: steps.changesets.outputs.published == 'true'
+        run: |
+          echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version**: ${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Distribution Tag**: ${{ steps.npm-dist-tag.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Git Tag**: ${{ vars.GIT_TAG_PREFIX || 'v' }}${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Published Packages**: ${{ steps.changesets.outputs.publishedPackages }}" >> $GITHUB_STEP_SUMMARY
