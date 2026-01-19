@@ -195,7 +195,7 @@ const InteractiveCard = forwardRef<HTMLDivElement, InteractiveCardProps>(
       >
         <div
           className={cn(
-            'relative w-full h-full transition-transform duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)] [transform-style:preserve-3d]',
+            'relative w-full h-full transition-transform duration-[length:600ms] ease-[timing-function:cubic-bezier(0.4,0,0.2,1)] [transform-style:preserve-3d]',
             flipped && '[transform:rotateY(180deg)]',
           )}
         >
