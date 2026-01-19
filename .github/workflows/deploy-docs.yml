@@ -3,7 +3,7 @@ name: Deploy Docs
 on:
   push:
     branches:
-      - ${{ vars.BASE_BRANCH || 'main' }}
+      - main
 
 permissions:
   contents: read

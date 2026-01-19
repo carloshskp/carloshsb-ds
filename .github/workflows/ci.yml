@@ -3,10 +3,10 @@ name: CI
 on:
   pull_request:
     branches:
-      - ${{ vars.BASE_BRANCH || 'main' }}
+      - main
   push:
     branches:
-      - ${{ vars.BASE_BRANCH || 'main' }}
+      - main
 
 jobs:
   lint-and-type-check:
