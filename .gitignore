@@ -27,3 +27,10 @@ dist/
 
 # Storybook debug logs
 debug-storybook.log
+
+# Build logs
+build*.log
+build-final.log
+
+# Changesets (normalmente deveria ser commitado, mas adicionado conforme solicitado)
+.changesets/
