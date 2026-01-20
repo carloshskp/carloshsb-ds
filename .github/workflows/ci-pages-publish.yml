@@ -15,12 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Node sem cache do Yarn (evita Yarn 1.x antes do Corepack)
-      - name: Node 24
-        uses: actions/setup-node@v5
-        with:
-          node-version: 24
-
       - name: Corepack + Yarn 4.12
         run: |
           corepack enable
@@ -39,6 +33,11 @@ jobs:
           key: ${{ runner.os }}-yarn4-${{ hashFiles('yarn.lock', '.yarnrc.yml', 'package.json') }}
           restore-keys: |
             ${{ runner.os }}-yarn4-
+
+      - name: Node 24
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
 
       - name: Install (lock imutável)
         run: yarn install --immutable
