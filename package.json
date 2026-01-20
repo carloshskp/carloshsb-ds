@@ -4,18 +4,19 @@
   "description": "Design System library for carloshb.com.br projects",
   "type": "module",
   "license": "Apache-2.0",
-  "author": "Carlos H. Bernardes",
+  "author": "Carlos H. Bernardes <contato@carloshb.com.br>",
+  "email": "contato@carloshb.com.br",
+  "website": "https://carloshb.com.br",
   "repository": {
     "type": "git",
-    "url": "https://github.com/carloshskp/v3.carloshb.com.br.git",
-    "directory": "ds"
+    "url": "https://github.com/carloshskp/carloshb-ds.git"
   },
-  "homepage": "https://github.com/carloshskp/v3.carloshb.com.br/tree/main/ds#readme",
+  "homepage": "https://storybook.carloshb.com.br",
   "bugs": {
-    "url": "https://github.com/carloshskp/v3.carloshb.com.br/issues"
+    "url": "https://github.com/carloshskp/carloshb-ds/issues"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24 <25"
   },
   "publishConfig": {
     "access": "public"
