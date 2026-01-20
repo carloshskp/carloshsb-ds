@@ -21,10 +21,13 @@ export default defineConfig({
     }),
     dts({
       include: ['src/**/*'],
-      exclude: ['src/**/*.test.ts', 'src/**/*.test.tsx', 'src/**/*.stories.tsx'],
+      exclude: ['node_modules/**', 'src/**/*.test.ts', 'src/**/*.test.tsx', 'src/**/*.stories.tsx'],
       outDir: 'dist/types',
       rollupTypes: true,
       entryRoot: 'src',
+      tsconfigPath: './tsconfig.json',
+      copyDtsFiles: false,
+      skipDiagnostics: false,
       rollupOptions: {
         typescriptCompilerFolder: typescriptCompilerFolder,
       },
@@ -83,7 +86,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, '../src'),
+      '@': path.resolve(__dirname, 'src'),
     },
   },
 });
