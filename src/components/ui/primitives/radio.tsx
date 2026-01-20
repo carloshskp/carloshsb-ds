@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useId } from 'react';
 import type { InputHTMLAttributes, ReactNode } from 'react';
 import { CircleDot, CircleDashed } from 'lucide-react';
 
@@ -11,7 +11,8 @@ export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(
   ({ className, label, description, disabled, checked, id, ...props }, ref) => {
-    const inputId = id || `radio-${Math.random().toString(36).substr(2, 9)}`;
+    const generatedId = useId();
+    const inputId = id || `radio-${generatedId}`;
 
     return (
       <label

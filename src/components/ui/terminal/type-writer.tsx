@@ -57,11 +57,12 @@ export function TypeWriter({ text, speed = 50, delay = 0, className }: TypeWrite
       intervalRef.current = null;
     }
     
-    setDisplayText('');
     currentIndexRef.current = 0;
     
     debounceTimeoutRef.current = setTimeout(() => {
       let cleanup: (() => void) | undefined;
+      setDisplayText('');
+
       
       if (delay > 0) {
         const delayTimeout = setTimeout(() => {

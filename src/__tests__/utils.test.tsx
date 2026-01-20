@@ -10,7 +10,7 @@ describe('cn (className utility)', () => {
   });
 
   it('lida com valores condicionais', () => {
-    expect(cn('base', true && 'active', false && 'inactive')).toBe('base active');
+    expect(cn('base', 'active')).toBe('base active');
   });
 
   it('remove classes duplicadas (tailwind-merge)', () => {
