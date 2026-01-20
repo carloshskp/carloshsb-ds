@@ -29,7 +29,8 @@
         "./src/*"
       ]
     },
-    "baseUrl": "."
+    "baseUrl": ".",
+    "tsBuildInfoFile": ".yarn/.tmp/tsconfig.tsbuildinfo"
   },
   "include": [
     "src"

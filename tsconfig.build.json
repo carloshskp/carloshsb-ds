@@ -12,7 +12,8 @@
         "../src/*"
       ]
     },
-    "declarationMap": true
+    "declarationMap": true,
+    "tsBuildInfoFile": ".yarn/.tmp/tsconfig.build.tsbuildinfo"
   },
   "include": [
     "src"

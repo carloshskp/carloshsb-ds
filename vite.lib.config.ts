@@ -28,6 +28,9 @@ export default defineConfig({
       tsconfigPath: './tsconfig.json',
       copyDtsFiles: false,
       skipDiagnostics: false,
+      // Configurações para compatibilidade com Yarn PnP
+      insertTypesEntry: false,
+      staticImport: true,
       rollupOptions: {
         typescriptCompilerFolder: typescriptCompilerFolder,
       },
