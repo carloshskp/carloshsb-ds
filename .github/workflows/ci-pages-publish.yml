@@ -13,29 +13,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Node 24
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         with:
           node-version: 24
-
       - name: Corepack
         run: |
           corepack enable
           corepack prepare yarn@4.12.0 --activate
-
       - name: Install
         run: yarn install --immutable --frozen-lockfile
-
       - name: Test/Lint
         run: |
           yarn test
           yarn lint
-
       - name: Build lib (Vite)
         run: yarn build
-
       - name: Validate build output
         run: |
           if [ ! -d "dist" ] || [ -z "$(ls -A dist)" ]; then
@@ -44,9 +39,8 @@ jobs:
           fi
           echo "Build output validated:"
           ls -la dist/
-
       - name: Build Storybook
-        run: yarn build-storybook
+        run: yarn build-storybook --quiet --output-dir storybook-static --disable-telemetry
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
