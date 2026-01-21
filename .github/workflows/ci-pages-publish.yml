@@ -39,8 +39,8 @@ jobs:
         with:
           node-version: 24
 
-      - name: Install (lock imutável)
-        run: yarn install --immutable
+      - name: Install
+        run: yarn install --production=false --ignore-engines
 
       # Se não existir script test/lint, remova este step
       - name: Test/Lint
