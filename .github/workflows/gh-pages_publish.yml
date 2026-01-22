@@ -71,7 +71,7 @@ jobs:
 
     steps:
       - name: Download Storybook artifact
-        uses: actions/download-pages-artifact@v4
+        uses: actions/download-artifact@v4
         with:
           path: storybook-static
           name: storybook-static
