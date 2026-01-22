@@ -38,6 +38,7 @@ jobs:
         run: |
           PKG_NAME="${{ env.name }}"
           PKG_VERSION="${{ env.version }}"
-          npm publish --access public
+          npm ci
+          npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
