@@ -22,8 +22,8 @@ jobs:
       - name: Extract version and name
         id: pkg-info
         run: |
-          echo 'version=$(jq -r ".version" package.json)' >> "$GITHUB_OUTPUT"
-          echo 'name=$(jq -r ".name" package.json)' >> "$GITHUB_OUTPUT"
+          echo "name=$(jq -r '.name' package.json)" >> "$GITHUB_OUTPUT"
+          echo "version=$(jq -r '.version' package.json)" >> "$GITHUB_OUTPUT"
       - name: Node 24
         uses: actions/setup-node@v4
         with:
