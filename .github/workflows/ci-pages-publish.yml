@@ -61,7 +61,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
 
-    # Concorrência só pro deploy (último deploy vence)
     concurrency:
       group: pages
       cancel-in-progress: true
@@ -75,8 +74,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
-    # Este job usa apenas o artifact do Storybook gerado no job 'build'
-    # Não refaz checkout, build ou qualquer outro processo
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
@@ -86,31 +83,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
 
-    # Este job usa apenas o artifact 'dist' gerado no job 'build'
-    # Não refaz build, install ou test - apenas baixa o artifact e publica
     steps:
-      # Checkout necessário apenas para ler package.json e verificar versão
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Node 24 + registry npmjs
-        uses: actions/setup-node@v5
-        with:
-          node-version: 24
-          registry-url: "https://registry.npmjs.org"
-
-      # Baixa o artifact 'dist' gerado no job 'build'
       - name: Download dist artifact
         uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist/
-
       - name: Validate dist artifact
         run: |
           echo "Downloaded dist contents:"
           ls -la dist/
-
       - name: Decide se deve publicar (versão ainda não existe no npm)
         id: ver
         shell: bash
@@ -127,9 +109,8 @@ jobs:
             echo "Já publicado no npm: $PKG_NAME@$PKG_VERSION"
           else
             echo "should_publish=true" >> "$GITHUB_OUTPUT"
-            echo "Vai publicar: $PKG_NAME@$PKG_VERSION (npm atual: ${PUBLISHED_VERSION:-none})"
+            echo "Publicar no npm: $PKG_NAME@$PKG_VERSION (npm atual: ${PUBLISHED_VERSION:-none})"
           fi
-
       - name: Publish (npm)
         if: steps.ver.outputs.should_publish == 'true'
         shell: bash
