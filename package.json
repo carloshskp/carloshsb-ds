@@ -1,6 +1,6 @@
 {
   "name": "@carloshb/ds",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Design System library for carloshb.com.br projects",
   "type": "module",
   "license": "Apache-2.0",
