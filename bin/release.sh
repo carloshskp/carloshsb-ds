@@ -13,4 +13,7 @@ git commit -m "Bump version to $VERSION"
 git tag -a "v$VERSION" -m "Bump version to $VERSION"
 
 # Push the release
-# git push --tags
+git push --tags
+
+# Push the commit
+git push
