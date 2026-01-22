@@ -15,6 +15,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Extract version
+        id: version
+        run: |
+          echo "version=$(node -p \"require('./package.json').version\")" >> "$GITHUB_OUTPUT"
+          echo "name=$(node -p \"require('./package.json').name\")" >> "$GITHUB_OUTPUT"
       - name: Node 24
         uses: actions/setup-node@v4
         with:
@@ -93,29 +98,11 @@ jobs:
         run: |
           echo "Downloaded dist contents:"
           ls -la dist/
-      - name: Decide se deve publicar (versão ainda não existe no npm)
-        id: ver
-        shell: bash
-        run: |
-          PKG_NAME="$(node -p "require('./package.json').name")"
-          PKG_VERSION="$(node -p "require('./package.json').version")"
-          PUBLISHED_VERSION="$(npm view "$PKG_NAME" version 2>/dev/null || true)"
-
-          echo "name=$PKG_NAME" >> "$GITHUB_OUTPUT"
-          echo "version=$PKG_VERSION" >> "$GITHUB_OUTPUT"
-
-          if [ "$PUBLISHED_VERSION" = "$PKG_VERSION" ]; then
-            echo "should_publish=false" >> "$GITHUB_OUTPUT"
-            echo "Já publicado no npm: $PKG_NAME@$PKG_VERSION"
-          else
-            echo "should_publish=true" >> "$GITHUB_OUTPUT"
-            echo "Publicar no npm: $PKG_NAME@$PKG_VERSION (npm atual: ${PUBLISHED_VERSION:-none})"
-          fi
       - name: Publish (npm)
-        if: steps.ver.outputs.should_publish == 'true'
         shell: bash
         run: |
-          PKG_NAME="${{ steps.ver.outputs.name }}"
+          PKG_NAME="${{ steps.version.outputs.name }}"
+          PKG_VERSION="${{ steps.version.outputs.version }}"
           ARGS=""
 
           # Se for scope e público, precisa access public (ou defina publishConfig.access)
